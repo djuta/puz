@@ -203,8 +203,8 @@ const parse = (data: Uint8Array): Puz => {
       const across = getAcross(startAcross, i);
       const down = getDown(startDown, i);
 
-      const isAcross = startAcross === i && across.len === 1;
-      const isDown = startDown === i && down.len === 1;
+      const isAcross = startAcross === i && across.len > 1;
+      const isDown = startDown === i && down.len > 1;
 
       isStart = true;
       if (isBlack) {
