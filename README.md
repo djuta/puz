@@ -5,15 +5,15 @@ Just a simple .puz parser.
 ## Install
 
 ```sh
-npm install @djuta/puz --save
+npm install puz-parser --save
 ```
 
 ## Usage
 
 ```js
-const parse = require('@djuta/puz');
+const parse = require('puz-parser');
 // Or
-import parse from '@djuta/puz';
+import parse from 'puz-parser';
 
 // Load a .puz file
 const data = new Uint8Array(buffer);
