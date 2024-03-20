@@ -173,6 +173,14 @@ const parse = (data: Uint8Array): Puz => {
       };
     };
 
+    const getClue = (x: number, y: number, direction: 'across' | 'down') => {
+      const dir = computedGrid[x][y]?.[direction];
+      return dir ? {
+        clue: dir.clue,
+        clueIndex: dir.clueIndex,
+      } : null;
+    };
+
     let clueIndex = 0;
     let acrossClueIndex = 0;
     let downClueIndex = 0;
@@ -191,11 +199,12 @@ const parse = (data: Uint8Array): Puz => {
 
       const startAcross = getStartingCellForAcross(y, i);
       const startDown = getStartingCellForDown(x, i);
-      const isAcross = startAcross === i;
-      const isDown = startDown === i;
 
       const across = getAcross(startAcross, i);
       const down = getDown(startDown, i);
+
+      const isAcross = startAcross === i && across.len === 1;
+      const isDown = startDown === i && down.len === 1;
 
       isStart = true;
       if (isBlack) {
@@ -231,11 +240,7 @@ const parse = (data: Uint8Array): Puz => {
           clueIndex: visibleClueIndex,
         };
       } else if (!isBlack) {
-        const dir = computedGrid[y][getX(startAcross)].across;
-        acrossClue = {
-          clue: dir.clue,
-          clueIndex: dir.clueIndex,
-        };
+        acrossClue = getClue(getY(startAcross), x, 'across');
       }
 
       if (isDown) {
@@ -244,11 +249,7 @@ const parse = (data: Uint8Array): Puz => {
           clueIndex: visibleClueIndex,
         };
       } else if (!isBlack) {
-        const dir = computedGrid[getY(startDown)][x].down;
-        downClue = {
-          clue: dir.clue,
-          clueIndex: dir.clueIndex,
-        };
+        downClue = getClue(getY(startDown), x, 'down');
       }
 
       computedGrid[y][x] = {

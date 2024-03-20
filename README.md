@@ -2,20 +2,18 @@
 
 Just a simple .puz parser.
 
-Can be seen in action with [code](https://github.com/dylanarmstrong/crossword-svelte) / [demo](https://dylan.is/crossword).
-
 ## Install
 
 ```sh
-npm install @dylanarmstrong/puz --save
+npm install @djuta/puz --save
 ```
 
 ## Usage
 
 ```js
-const parse = require('@dylanarmstrong/puz');
+const parse = require('@djuta/puz');
 // Or
-import parse from '@dylanarmstrong/puz';
+import parse from '@djuta/puz';
 
 // Load a .puz file
 const data = new Uint8Array(buffer);
