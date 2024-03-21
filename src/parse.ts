@@ -173,8 +173,10 @@ const parse = (data: Uint8Array): Puz => {
       };
     };
 
-    const getClue = (x: number, y: number, direction: 'across' | 'down') => {
-      const dir = computedGrid[x][y]?.[direction];
+    const getClue = (start: number, direction: 'across' | 'down') => {
+      const y = getY(start);
+      const x = getX(start);
+      const dir = computedGrid[y][x]?.[direction];
       return dir ? {
         clue: dir.clue,
         clueIndex: dir.clueIndex,
@@ -240,7 +242,7 @@ const parse = (data: Uint8Array): Puz => {
           clueIndex: visibleClueIndex,
         };
       } else if (!isBlack) {
-        acrossClue = getClue(getY(startAcross), x, 'across');
+        acrossClue = getClue(startAcross, 'across');
       }
 
       if (isDown) {
@@ -249,7 +251,7 @@ const parse = (data: Uint8Array): Puz => {
           clueIndex: visibleClueIndex,
         };
       } else if (!isBlack) {
-        downClue = getClue(getY(startDown), x, 'down');
+        downClue = getClue(startDown, 'down');
       }
 
       computedGrid[y][x] = {
